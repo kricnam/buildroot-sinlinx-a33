@@ -176,26 +176,6 @@ int mmc_set_blocklen(struct mmc *mmc, int len)
 }
 
 
-struct mmc *find_mmc_device(int dev_num)
-{
-	struct mmc *m;
-	struct list_head *entry;
-
-	list_for_each(entry, &mmc_devices) {
-		m = list_entry(entry, struct mmc, link);
-printf("find mmc num %u\n",m->block_dev.devnum);
-		if (m->block_dev.devnum == dev_num)
-			return m;
-	}
-
-#if !defined(CONFIG_SPL_BUILD) || defined(CONFIG_SPL_LIBCOMMON_SUPPORT)
-	printf("MMC Device %d not found\n", dev_num);
-#endif
-
-	return NULL;
-}
-
-
 static int mmc_read_blocks(struct mmc *mmc, void *dst, lbaint_t start,
 			   lbaint_t blkcnt)
 {

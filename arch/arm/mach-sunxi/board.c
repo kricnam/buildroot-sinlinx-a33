@@ -9,7 +9,7 @@
  *
  * SPDX-License-Identifier:	GPL-2.0+
  */
-
+#define DEBUG
 #include <common.h>
 #include <mmc.h>
 #include <i2c.h>
@@ -237,8 +237,10 @@ u32 spl_boot_device(void)
 
 #ifdef CONFIG_MMC
 	if (CONFIG_MMC_SUNXI_SLOT_EXTRA == 2) {
-		mmc1 = find_mmc_device(1);
-		if (sunxi_mmc_has_egon_boot_signature(mmc1))
+	  
+          mmc1 = find_mmc_device(1);
+	printf("found mmc 2 %s\n",mmc1->cfg->name);
+	if (sunxi_mmc_has_egon_boot_signature(mmc1))
 			return BOOT_DEVICE_MMC2;
 	}
 #endif

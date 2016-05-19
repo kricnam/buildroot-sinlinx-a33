@@ -449,7 +449,7 @@ int sunxi_mmc_has_egon_boot_signature(struct mmc *mmc)
 {
 	char *buf = malloc(512);
 	int valid_signature = 0;
-
+printf("read sig\n");
 	if (buf == NULL)
 		panic("Failed to allocate memory\n");
 
@@ -457,7 +457,7 @@ int sunxi_mmc_has_egon_boot_signature(struct mmc *mmc)
 	    mmc->block_dev.block_read(&mmc->block_dev, 16, 1, buf) == 1 &&
 	    strncmp(&buf[4], "eGON.BT0", 8) == 0)
 		valid_signature = 1;
-
+printf("[%s]\n",&buf[4]);
 	free(buf);
 	return valid_signature;
 }

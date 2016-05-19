@@ -367,7 +367,7 @@ int board_mmc_init(bd_t *bis)
 	if (!mmc1)
 		return -1;
 #endif
-
+printf("SPL---\n");
 #if !defined(CONFIG_SPL_BUILD) && CONFIG_MMC_SUNXI_SLOT_EXTRA == 2
 	/*
 	 * On systems with an emmc (mmc2), figure out if we are booting from
@@ -378,6 +378,7 @@ int board_mmc_init(bd_t *bis)
 	if (!sunxi_mmc_has_egon_boot_signature(mmc0) &&
 	    sunxi_mmc_has_egon_boot_signature(mmc1)) {
 		/* Booting from emmc / mmc2, swap */
+                printf("mmc1\n");
 		mmc0->block_dev.devnum = 1;
 		mmc1->block_dev.devnum = 0;
 	}

@@ -185,7 +185,7 @@ struct mmc *find_mmc_device(int dev_num)
 
 	list_for_each(entry, &mmc_devices) {
 		m = list_entry(entry, struct mmc, link);
-
+printf("find mmc num %u\n",m->block_dev.devnum);
 		if (m->block_dev.devnum == dev_num)
 			return m;
 	}
@@ -836,7 +836,7 @@ int mmc_getcd(struct mmc *mmc)
 		else
 			cd = 1;
 	}
-
+printf("getcd return %d\n",cd);
 	return cd;
 }
 
@@ -1601,7 +1601,7 @@ __weak void board_mmc_power_init(void)
 int mmc_start_init(struct mmc *mmc)
 {
 	int err;
-
+printf("mmc_start_init %x\n",mmc);
 	/* we pretend there's no card when init is NULL */
 	if (mmc_getcd(mmc) == 0 || mmc->cfg->ops->init == NULL) {
 		mmc->has_init = 0;
@@ -1694,7 +1694,7 @@ int mmc_init(struct mmc *mmc)
 
 	if (!err)
 		err = mmc_complete_init(mmc);
-	debug("%s: %d, time %lu\n", __func__, err, get_timer(start));
+	printf("%s: %d, time %lu\n", __func__, err, get_timer(start));
 	return err;
 }
 

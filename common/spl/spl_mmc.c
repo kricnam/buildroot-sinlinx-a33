@@ -325,7 +325,7 @@ int spl_mmc_load_image(u32 boot_device)
 #endif
 		/* If RAW mode fails, try FS mode. */
 	case MMCSD_MODE_FS:
-		debug("spl: mmc boot mode: fs\n");
+		printf("spl: mmc boot mode: fs\n");
 
 		err = spl_mmc_do_fs_boot(mmc);
 		if (!err)

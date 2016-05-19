@@ -1066,7 +1066,7 @@ The following options need to be configured:
 		CONFIG_CMD_RUN		  run command in env variable
 		CONFIG_CMD_SANDBOX	* sb command to access sandbox features
 		CONFIG_CMD_SAVES	* save S record dump
-		CONFIG_CMD_SCSI		* SCSI Support
+		CONFIG_SCSI		* SCSI Support
 		CONFIG_CMD_SDRAM	* print SDRAM configuration information
 					  (requires CONFIG_CMD_I2C)
 		CONFIG_CMD_SETGETDCR	  Support for DCR Register access
@@ -1254,7 +1254,7 @@ The following options need to be configured:
 		CONFIG_MTD_PARTITIONS  Memory Technology Device partition table.
 
 		If IDE or SCSI support is enabled (CONFIG_CMD_IDE or
-		CONFIG_CMD_SCSI) you must configure support for at
+		CONFIG_SCSI) you must configure support for at
 		least one non-MTD partition type as well.
 
 - IDE Reset method:
@@ -3486,6 +3486,10 @@ FIT uImage format:
 		An example is the LPC32XX MLC NAND driver, which will
 		consider that a completely unreadable NAND block is bad,
 		and thus should be skipped silently.
+
+		CONFIG_SPL_ABORT_ON_RAW_IMAGE
+		When defined, SPL will proceed to another boot method
+		if the image it has loaded does not have a signature.
 
 		CONFIG_SPL_RELOC_STACK
 		Adress of the start of the stack SPL will use after

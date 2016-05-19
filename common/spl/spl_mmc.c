@@ -23,8 +23,12 @@ static int mmc_load_legacy(struct mmc *mmc, ulong sector,
 {
 	u32 image_size_sectors;
 	unsigned long count;
+	int ret;
 
-	spl_parse_image_header(header);
+	ret = spl_parse_image_header(header);
+	if (ret)
+		return ret;
+
 	/* convert size to sectors - round up */
 	image_size_sectors = (spl_image.size + mmc->read_bl_len - 1) /
 			     mmc->read_bl_len;
@@ -296,7 +300,7 @@ int spl_mmc_load_image(u32 boot_device)
 			if (part == 7)
 				part = 0;
 
-			err = mmc_switch_part(0, part);
+			err = blk_dselect_hwpart(mmc_get_blk_desc(mmc), part);
 			if (err) {
 #ifdef CONFIG_SPL_LIBCOMMON_SUPPORT
 				puts("spl: mmc partition switch failed\n");
